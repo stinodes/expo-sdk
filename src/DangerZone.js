@@ -16,6 +16,9 @@ module.exports = {
   get Payments() {
     return require('./Payments');
   },
+  get Print() {
+    return require('./Print');
+  },
   get DeviceMotion() {
     return require('./sensor/DeviceMotion').default;
   },
