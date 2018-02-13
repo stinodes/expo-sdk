@@ -38,6 +38,17 @@ type SurfaceCreateEvent = {
   },
 };
 
+type SnapshotOptions = {
+  flip?: boolean,
+  framebuffer?: WebGLFramebuffer,
+  rect?: {
+    x: number,
+    y: number,
+    width: number,
+    height: number,
+  },
+};
+
 /**
  * A component that acts as an OpenGL render target
  */
@@ -115,6 +126,11 @@ export default class GLView extends React.Component<Props> {
 
   destroyObjectAsync(glObject: WebGLObject) {
     return NativeModules.ExponentGLObjectManager.destroyObjectAsync(glObject.id);
+  }
+
+  saveSnapshotAsync(options: SnapshotOptions = {}) {
+    const viewTag = findNodeHandle(this.nativeRef);
+    return NativeModules.ExponentGLObjectManager.saveSnapshotAsync(viewTag, options);
   }
 }
 
