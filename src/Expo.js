@@ -173,6 +173,9 @@ module.exports = {
   get Logs() {
     return require('./logs/Logs').default;
   },
+  get Localization() {
+    return require('./Localization').default;
+  },
   get MailComposer() {
     return require('./MailComposer');
   },

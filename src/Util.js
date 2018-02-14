@@ -4,18 +4,29 @@ import invariant from 'invariant';
 import { EventEmitter, EventSubscription } from 'fbemitter';
 import { DeviceEventEmitter, NativeModules } from 'react-native';
 
+import Localization from './Localization';
+
 const { ExponentUtil } = NativeModules;
 
 export function getCurrentDeviceCountryAsync(): Promise<string> {
-  return ExponentUtil.getCurrentDeviceCountryAsync();
+  console.warn(
+    'Util.getCurrentDeviceCountryAsync is deprecated, use Localization.getCurrentDeviceCountryAsync'
+  );
+  return Localization.getCurrentDeviceCountryAsync();
 }
 
 export function getCurrentLocaleAsync(): Promise<string> {
-  return ExponentUtil.getCurrentLocaleAsync();
+  console.warn(
+    'Util.getCurrentDeviceCountryAsync is deprecated, use Localization.getCurrentDeviceCountryAsync'
+  );
+  return Localization.getCurrentLocaleAsync();
 }
 
 export function getCurrentTimeZoneAsync(): Promise<string> {
-  return ExponentUtil.getCurrentTimeZoneAsync();
+  console.warn(
+    'Util.getCurrentDeviceCountryAsync is deprecated, use Localization.getCurrentDeviceCountryAsync'
+  );
+  return Localization.getCurrentTimeZoneAsync();
 }
 
 export function reload(): void {
