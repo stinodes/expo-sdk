@@ -15,9 +15,12 @@ type SelectResult = {
   url: string,
 };
 
-export async function printAsync(options: PrintOptions): Promise<> {
-  if ((!!options.uri && !!options.html) || (!options.uri && !options.html)) {
-    throw new Error("Must provide either `html` or `uri`. Both are either missing or passed together.");
+export async function printAsync(options: PrintOptions): Promise<void> {
+  if (!options.uri && !options.html) {
+    throw new Error('Must provide either `html` or `uri` to print');
+  }
+  if (options.uri && options.html) {
+    throw new Error('Must provide exactly one of `html` and `uri` but both were specified');
   }
   return ExponentPrint.print(options);
 }
