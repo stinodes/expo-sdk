@@ -128,9 +128,9 @@ export default class GLView extends React.Component<Props> {
     return NativeModules.ExponentGLObjectManager.destroyObjectAsync(glObject.id);
   }
 
-  saveSnapshotAsync(options: SnapshotOptions = {}) {
+  takeSnapshotAsync(options: SnapshotOptions = {}) {
     const viewTag = findNodeHandle(this.nativeRef);
-    return NativeModules.ExponentGLObjectManager.saveSnapshotAsync(viewTag, options);
+    return NativeModules.ExponentGLObjectManager.takeSnapshotAsync(viewTag, options);
   }
 }
 
