@@ -11,7 +11,9 @@ type PermissionType =
   | 'contacts'
   | 'audioRecording'
   | 'systemBrightness'
-  | 'cameraRoll';
+  | 'cameraRoll'
+  | 'calendar'
+  | 'reminders';
 type PermissionStatus = 'undetermined' | 'granted' | 'denied';
 type PermissionExpires = 'never';
 type PermissionDetailsLocationIOS = {
@@ -43,3 +45,5 @@ export const NOTIFICATIONS = 'notifications';
 export const CONTACTS = 'contacts';
 export const SYSTEM_BRIGHTNESS = 'systemBrightness';
 export const CAMERA_ROLL = 'cameraRoll';
+export const CALENDAR = 'calendar';
+export const REMINDERS = 'reminders';
