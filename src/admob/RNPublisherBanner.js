@@ -72,6 +72,7 @@ export default class PublisherBanner extends React.Component<PropsType, StateTyp
     onAdViewDidDismissScreen: PropTypes.func,
     onAdViewWillLeaveApplication: PropTypes.func,
     onAdmobDispatchAppEvent: PropTypes.func,
+    ...ViewPropTypes,
   };
 
   static defaultProps = { bannerSize: 'smartBannerPortrait' };
