@@ -99,6 +99,9 @@ module.exports = {
   get FaceDetector() {
     return require('./FaceDetector').default;
   },
+  get GestureHandler() {
+    return require('react-native-gesture-handler');
+  },
   get KeepAwake() {
     return require('./KeepAwake').default;
   },

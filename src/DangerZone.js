@@ -11,6 +11,7 @@ module.exports = {
     return require('react-native-branch').default;
   },
   get GestureHandler() {
+    console.warn('GestureHandler is no longer in DangerZone, you can now import it directly from the expo package.')
     return require('react-native-gesture-handler');
   },
   get Payments() {
