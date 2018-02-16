@@ -70,6 +70,7 @@ export default class AdMobBanner extends React.Component<PropsType, StateType> {
     onAdViewWillDismissScreen: PropTypes.func,
     onAdViewDidDismissScreen: PropTypes.func,
     onAdViewWillLeaveApplication: PropTypes.func,
+    ...ViewPropTypes,
   };
 
   static defaultProps = { bannerSize: 'smartBannerPortrait' };
