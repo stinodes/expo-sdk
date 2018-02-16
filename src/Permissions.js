@@ -1,19 +1,20 @@
 // @flow
 
-import { Platform, NativeModules } from 'react-native';
+import { NativeModules } from 'react-native';
 
 let { ExponentPermissions: Permissions } = NativeModules;
 
 type PermissionType =
-  | 'remoteNotifications'
-  | 'location'
-  | 'camera'
-  | 'contacts'
   | 'audioRecording'
-  | 'systemBrightness'
-  | 'cameraRoll'
   | 'calendar'
-  | 'reminders';
+  | 'camera'
+  | 'cameraRoll'
+  | 'contacts'
+  | 'location'
+  | 'notifications'
+  | 'reminders'
+  | 'systemBrightness'
+  | 'userFacingNotifications';
 type PermissionStatus = 'undetermined' | 'granted' | 'denied';
 type PermissionExpires = 'never';
 type PermissionDetailsLocationIOS = {
@@ -40,7 +41,7 @@ export async function askAsync(type: PermissionType): Promise<PermissionResponse
 export const CAMERA = 'camera';
 export const AUDIO_RECORDING = 'audioRecording';
 export const LOCATION = 'location';
-export const REMOTE_NOTIFICATIONS = 'remoteNotifications';
+export const USER_FACING_NOTIFICATIONS = 'userFacingNotifications';
 export const NOTIFICATIONS = 'notifications';
 export const CONTACTS = 'contacts';
 export const SYSTEM_BRIGHTNESS = 'systemBrightness';
