@@ -43,7 +43,7 @@
   },
   "homepage": "https://github.com/expo/expo-sdk",
   "dependencies": {
-    "@expo/vector-icons": "^6.3.0",
+    "@expo/vector-icons": "^6.3.1",
     "babel-preset-expo": "^4.0.0",
     "fbemitter": "^2.1.1",
     "invariant": "^2.2.2",
