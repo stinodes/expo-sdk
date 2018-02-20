@@ -29,7 +29,7 @@ type Props = {
   /**
    * A ref callback for the native GLView
    */
-  nativeRef_EXPERIMENTAL: React.Ref<typeof GLView.NativeView>,
+  nativeRef_EXPERIMENTAL: (React.ElementRef<typeof GLView.NativeView> | null) => void,
 } & React.ElementProps<typeof View>;
 
 type SurfaceCreateEvent = {
@@ -92,7 +92,7 @@ export default class GLView extends React.Component<Props> {
     );
   }
 
-  _setNativeRef = (nativeRef: GLView.NativeView) => {
+  _setNativeRef = (nativeRef: React.ElementRef<typeof GLView.NativeView>) => {
     if (this.props.nativeRef_EXPERIMENTAL) {
       this.props.nativeRef_EXPERIMENTAL(nativeRef);
     }

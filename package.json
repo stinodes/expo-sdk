@@ -65,8 +65,8 @@
   "devDependencies": {
     "@expo/npm-proofread": "^1.0.1",
     "eslint": "^4.10.0",
-    "eslint-config-universe": "^1.0.6",
-    "flow-bin": "^0.61.0",
+    "eslint-config-universe": "^1.0.7",
+    "flow-bin": "^0.63.0",
     "jest-expo": "^26.0.0-alpha.0",
     "prettier": "^1.7.4",
     "react": "16.2.0",

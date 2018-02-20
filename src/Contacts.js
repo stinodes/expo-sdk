@@ -134,9 +134,11 @@ type Response = {
 
 const DEFAULT_PAGE_SIZE = 100;
 
-export async function getContactsAsync(
-  { pageSize = DEFAULT_PAGE_SIZE, pageOffset = 0, fields = [] }: Options = {}
-): Promise<Response> {
+export async function getContactsAsync({
+  pageSize = DEFAULT_PAGE_SIZE,
+  pageOffset = 0,
+  fields = [],
+}: Options = {}): Promise<Response> {
   if (Platform.OS === 'ios' && (fields.includes(IMAGE) || fields.includes(THUMBNAIL))) {
     console.warn(
       'Mind that fetching images for all contacts might be time and resource consuming. ' +
