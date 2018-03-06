@@ -17,14 +17,14 @@ export function getCurrentDeviceCountryAsync(): Promise<string> {
 
 export function getCurrentLocaleAsync(): Promise<string> {
   console.warn(
-    'Util.getCurrentDeviceCountryAsync is deprecated, use Localization.getCurrentDeviceCountryAsync'
+    'Util.getCurrentLocaleAsync is deprecated, use Localization.getCurrentLocaleAsync'
   );
   return Localization.getCurrentLocaleAsync();
 }
 
 export function getCurrentTimeZoneAsync(): Promise<string> {
   console.warn(
-    'Util.getCurrentDeviceCountryAsync is deprecated, use Localization.getCurrentDeviceCountryAsync'
+    'Util.getCurrentTimeZoneAsync is deprecated, use Localization.getCurrentTimeZoneAsync'
   );
   return Localization.getCurrentTimeZoneAsync();
 }
