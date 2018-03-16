@@ -209,6 +209,9 @@ module.exports = {
   get Speech() {
     return require('./Speech');
   },
+  get Updates() {
+    return require('./Updates');
+  },
   get Util() {
     return require('./Util');
   },
