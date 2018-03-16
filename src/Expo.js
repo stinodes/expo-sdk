@@ -109,7 +109,7 @@ module.exports = {
     return require('./effects/LinearGradient').default;
   },
   get MapView() {
-    return require('react-native-maps');
+    return require('react-native-maps').default;
   },
   get Modal() {
     return require('./modal/Modal').default;
