@@ -69,3 +69,11 @@ export function addListener(listener: Function): EventSubscription {
   let emitter = _getEmitter();
   return emitter.addListener('Exponent.updatesEvent', listener);
 }
+
+export const EventType = {
+  DOWNLOAD_STARTED: 'downloadStart',
+  DOWNLOAD_PROGRESS: 'downloadProgress',
+  DOWNLOAD_FINISHED: 'downloadFinished',
+  NO_UPDATE_AVAILABLE: 'noUpdateAvailable',
+  ERROR: 'error',
+};
