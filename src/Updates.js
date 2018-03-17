@@ -6,7 +6,7 @@ import { DeviceEventEmitter, NativeModules } from 'react-native';
 
 const { ExponentUpdates } = NativeModules;
 
-export async function reload(): void {
+export function reload(): void {
   ExponentUpdates.reload();
 }
 
