@@ -95,7 +95,7 @@ type Contact = {
     label: string,
     id: string,
   }[],
-  urls?: {
+  urlAddresses?: {
     label: string,
     url?: string,
     id: string,
