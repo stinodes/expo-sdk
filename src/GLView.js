@@ -138,6 +138,8 @@ export default class GLView extends React.Component<Props> {
 
 class WebGLRenderingContext {}
 
+class WebGL2RenderingContext extends WebGLRenderingContext {}
+
 type WebGLObjectId = any;
 
 const idToObject = {};
@@ -465,12 +467,20 @@ const getGl = exglCtxId => {
   const gl = global.__EXGLContexts[exglCtxId];
   gl.__exglCtxId = exglCtxId;
   delete global.__EXGLContexts[exglCtxId];
+
+  // determine the prototype to use, depending on OpenGL ES version
+  const glesVersion = gl.getParameter(gl.VERSION);
+  const supportsWebGL2 = parseFloat(glesVersion.split(/[^\d.]+/g).join(' ')) >= 3.0;
+  const prototype = supportsWebGL2
+    ? global.WebGL2RenderingContext.prototype
+    : global.WebGLRenderingContext.prototype;
+
   if (Object.setPrototypeOf) {
-    Object.setPrototypeOf(gl, global.WebGLRenderingContext.prototype);
+    Object.setPrototypeOf(gl, prototype);
   } else {
     // Delete this path when we are competely sure we're using modern JSC on Android. iOS 9+
     // supports Object.setPrototypeOf.
-    gl.__proto__ = global.WebGLRenderingContext.prototype; // eslint-disable-line no-proto
+    gl.__proto__ = prototype; // eslint-disable-line no-proto
   }
 
   wrapMethods(gl);
@@ -525,7 +535,7 @@ const getGl = exglCtxId => {
 };
 
 global.WebGLRenderingContext = WebGLRenderingContext;
-global.WebGL2RenderingContext = WebGLRenderingContext;
+global.WebGL2RenderingContext = WebGL2RenderingContext;
 global.WebGLObject = WebGLObject;
 global.WebGLBuffer = WebGLBuffer;
 global.WebGLFramebuffer = WebGLFramebuffer;
