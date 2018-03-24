@@ -16,6 +16,9 @@ module.exports = {
     );
     return require('react-native-gesture-handler');
   },
+  get Localization() {
+    return require('./Localization').default;
+  },
   get Payments() {
     return require('./Payments');
   },
