@@ -64,7 +64,23 @@ export default class GLView extends React.Component<Props> {
     msaaSamples: 4,
   };
 
+  static async createContextAsync() {
+    const { exglCtxId } = await NativeModules.ExponentGLObjectManager.createContextAsync();
+    return getGl(exglCtxId);
+  }
+
+  static async destroyContextAsync(exgl: object | number) {
+    const exglCtxId = getContextId(exgl);
+    return NativeModules.ExponentGLObjectManager.destroyContextAsync(exglCtxId);
+  }
+
+  static async takeSnapshotAsync(exgl: object | number, options: SnapshotOptions = {}) {
+    const exglCtxId = getContextId(exgl);
+    return NativeModules.ExponentGLObjectManager.takeSnapshotAsync(exglCtxId, options);
+  }
+
   nativeRef: ?GLView.NativeView;
+  exglCtxId: ?number;
 
   render() {
     const {
@@ -101,6 +117,9 @@ export default class GLView extends React.Component<Props> {
 
   _onSurfaceCreate = ({ nativeEvent: { exglCtxId } }: SurfaceCreateEvent) => {
     const gl = getGl(exglCtxId);
+
+    this.exglCtxId = exglCtxId;
+
     if (this.props.onContextCreate) {
       this.props.onContextCreate(gl);
     }
@@ -129,8 +148,8 @@ export default class GLView extends React.Component<Props> {
   }
 
   takeSnapshotAsync(options: SnapshotOptions = {}) {
-    const viewTag = findNodeHandle(this.nativeRef);
-    return NativeModules.ExponentGLObjectManager.takeSnapshotAsync(viewTag, options);
+    const { exglCtxId } = this;
+    return GLView.takeSnapshotAsync(exglCtxId, options);
   }
 }
 
@@ -532,6 +551,15 @@ const getGl = exglCtxId => {
   });
 
   return gl;
+};
+
+const getContextId = (exgl: object | number) => {
+  const exglCtxId = exgl && typeof exgl === 'object' ? exgl.__exglCtxId : exgl;
+
+  if (!exglCtxId || typeof exglCtxId !== 'number') {
+    throw new Error(`Invalid EXGLContext id: ${exglCtxId}`);
+  }
+  return exglCtxId;
 };
 
 global.WebGLRenderingContext = WebGLRenderingContext;
