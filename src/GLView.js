@@ -69,12 +69,12 @@ export default class GLView extends React.Component<Props> {
     return getGl(exglCtxId);
   }
 
-  static async destroyContextAsync(exgl: object | number) {
+  static async destroyContextAsync(exgl: WebGLRenderingContext | ?number) {
     const exglCtxId = getContextId(exgl);
     return NativeModules.ExponentGLObjectManager.destroyContextAsync(exglCtxId);
   }
 
-  static async takeSnapshotAsync(exgl: object | number, options: SnapshotOptions = {}) {
+  static async takeSnapshotAsync(exgl: WebGLRenderingContext | ?number, options: SnapshotOptions = {}) {
     const exglCtxId = getContextId(exgl);
     return NativeModules.ExponentGLObjectManager.takeSnapshotAsync(exglCtxId, options);
   }
@@ -155,7 +155,9 @@ export default class GLView extends React.Component<Props> {
 
 // JavaScript WebGL types to wrap around native objects
 
-class WebGLRenderingContext {}
+class WebGLRenderingContext {
+  __exglCtxId: ?number;
+}
 
 class WebGL2RenderingContext extends WebGLRenderingContext {}
 
@@ -553,11 +555,11 @@ const getGl = exglCtxId => {
   return gl;
 };
 
-const getContextId = (exgl: object | number) => {
+const getContextId = (exgl: WebGLRenderingContext | ?number) => {
   const exglCtxId = exgl && typeof exgl === 'object' ? exgl.__exglCtxId : exgl;
 
   if (!exglCtxId || typeof exglCtxId !== 'number') {
-    throw new Error(`Invalid EXGLContext id: ${exglCtxId}`);
+    throw new Error(`Invalid EXGLContext id: ${String(exglCtxId)}`);
   }
   return exglCtxId;
 };
