@@ -12,7 +12,7 @@ type AuthSessionOptions = {
 };
 
 type AuthSessionResult =
-  | { type: 'cancel' | 'dismissed' | 'locked' }
+  | { type: 'cancel' | 'dismiss' | 'locked' }
   | {
       type: 'error' | 'success',
       errorCode: ?string,
@@ -87,7 +87,7 @@ function dismiss() {
 async function _openWebBrowserAsync(startUrl, returnUrl) {
   // $FlowIssue: Flow thinks the awaited result can be a promise
   let result = await WebBrowser.openAuthSessionAsync(startUrl, returnUrl);
-  if (result.type === 'cancel' || result.type === 'dismissed') {
+  if (result.type === 'cancel' || result.type === 'dismiss') {
     return { type: result.type };
   }
 
