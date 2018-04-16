@@ -10,6 +10,10 @@ export function reload(): void {
   ExponentUpdates.reload();
 }
 
+export function reloadFromCache(): void {
+  ExponentUpdates.reloadFromCache();
+}
+
 export async function checkForUpdateAsync(): Promise<Object> {
   const result = await ExponentUpdates.checkForUpdateAsync();
   let returnObj: any = {
