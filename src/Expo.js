@@ -179,6 +179,9 @@ module.exports = {
   get MailComposer() {
     return require('./MailComposer');
   },
+  get MediaLibrary() {
+    return require('./MediaLibrary');
+  },
   get Pedometer() {
     return require('./Pedometer');
   },
