@@ -47,6 +47,8 @@ type SnapshotOptions = {
     width: number,
     height: number,
   },
+  format?: 'jpeg' | 'png',
+  compress?: number,
 };
 
 /**
