@@ -170,6 +170,9 @@ module.exports = {
   get ImagePicker() {
     return require('./ImagePicker');
   },
+  get Linking() {
+    return require('./Linking').default;
+  },
   get Location() {
     return require('./Location').default;
   },
