@@ -161,6 +161,9 @@ module.exports = {
   get Google() {
     return require('./Google');
   },
+  get Haptic() {
+    return require('./Haptic');
+  },
   get Icon() {
     return require('./Icon').default;
   },
