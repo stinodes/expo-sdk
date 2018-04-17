@@ -4,23 +4,41 @@ import { NativeModules, Platform } from 'react-native';
 
 const { ExponentMediaLibrary: MediaLibrary } = NativeModules;
 
-type MediaType = 'audio' | 'photo' | 'video' | 'unknown';
+type MediaTypeValue = 'audio' | 'photo' | 'video' | 'unknown';
 type SortByKey =
   | 'default'
   | 'id'
   | 'mediaType'
   | 'width'
   | 'height'
-  | 'createdAt'
-  | 'modificatedAt'
+  | 'creationTime'
+  | 'modificationTime'
   | 'duration';
-type SortBy = [SortByKey, boolean] | SortByKey;
+type SortByValue = [SortByKey, boolean] | SortByKey;
+
+type MediaTypeObject = {
+  audio: 'audio',
+  photo: 'photo',
+  video: 'video',
+  unknown: 'unknown',
+};
+
+type SortByObject = {
+  default: 'default',
+  id: 'id',
+  mediaType: 'mediaType',
+  width: 'width',
+  height: 'height',
+  creationTime: 'creationTime',
+  modificationTime: 'modificationTime',
+  duration: 'duration',
+};
 
 type Asset = {
   id: string,
   filename: string,
   uri: string,
-  mediaType: MediaType,
+  mediaType: MediaTypeValue,
   mediaSubtypes?: Array<string>, // iOS only
   width: number,
   height: number,
@@ -58,8 +76,8 @@ type AssetsOptions = {
   first?: number,
   after?: AssetRef,
   album?: AlbumRef,
-  sortBy?: Array<SortBy> | SortBy,
-  mediaType?: Array<MediaType> | MediaType,
+  sortBy?: Array<SortByValue> | SortByValue,
+  mediaType?: Array<MediaTypeValue> | MediaTypeValue,
 };
 
 type PagedInfo<T> = {
@@ -72,14 +90,14 @@ type PagedInfo<T> = {
 type AssetRef = Asset | string;
 type AlbumRef = Album | string;
 
-function arrayize(item): Array {
+function arrayize(item: any): Array<any> {
   if (Array.isArray(item)) {
     return item;
   }
   return item ? [item] : [];
 }
 
-function getId(ref): string {
+function getId(ref): ?string {
   if (typeof ref === 'string') {
     return ref;
   }
@@ -117,7 +135,8 @@ function checkSortByKey(sortBy) {
 }
 
 // export constants
-export const { MediaType, SortBy } = MediaLibrary;
+export const MediaType: MediaTypeObject = MediaLibrary.MediaType;
+export const SortBy: SortByObject = MediaLibrary.SortBy;
 
 export async function createAssetAsync(localUri: string): Promise<Asset> {
   if (!localUri || typeof localUri !== 'string') {
@@ -146,7 +165,10 @@ export async function addAssetsToAlbumAsync(
   return MediaLibrary.addAssetsToAlbumAsync(assetIds, albumId, !!copy);
 }
 
-export async function removeAssetsFromAlbumAsync(assets: Array<AssetRef> | AssetRef, album: AlbumRef) {
+export async function removeAssetsFromAlbumAsync(
+  assets: Array<AssetRef> | AssetRef,
+  album: AlbumRef
+) {
   const assetIds = arrayize(assets).map(getId);
   const albumId = getId(album);
 

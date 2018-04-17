@@ -5,7 +5,7 @@ import { NativeModules, Platform } from 'react-native';
 const { ExponentPrint } = NativeModules;
 
 type PrintOptions = {
-  filePath: string,
+  uri: string,
   html?: string,
   printerUrl?: string,
 };

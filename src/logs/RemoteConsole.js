@@ -12,7 +12,7 @@ function createRemoteConsole(originalConsole: Console): Console {
   let groupDepth = 0;
 
   // $FlowIssue: Flow declares console's properties to read-only
-  const enhancedConsole = Object.create(originalConsole);
+  const enhancedConsole: Object = Object.create(originalConsole);
 
   // https://console.spec.whatwg.org/#debug
   // Don't use a level below "info" because "debug" is intended for messages that shouldn't be shown
