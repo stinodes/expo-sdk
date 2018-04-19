@@ -4,7 +4,7 @@ import { NativeModules, Platform } from 'react-native';
 
 const { ExponentMediaLibrary: MediaLibrary } = NativeModules;
 
-type MediaType = 'audio' | 'photo' | 'video' | 'unknown';
+type MediaTypeEnum = 'audio' | 'photo' | 'video' | 'unknown';
 type SortByKey =
   | 'default'
   | 'id'
@@ -14,13 +14,13 @@ type SortByKey =
   | 'createdAt'
   | 'modificatedAt'
   | 'duration';
-type SortBy = [SortByKey, boolean] | SortByKey;
+type SortByEnum = [SortByKey, boolean] | SortByKey;
 
 type Asset = {
   id: string,
   filename: string,
   uri: string,
-  mediaType: MediaType,
+  mediaType: MediaTypeEnum,
   mediaSubtypes?: Array<string>, // iOS only
   width: number,
   height: number,
@@ -58,8 +58,8 @@ type AssetsOptions = {
   first?: number,
   after?: AssetRef,
   album?: AlbumRef,
-  sortBy?: Array<SortBy> | SortBy,
-  mediaType?: Array<MediaType> | MediaType,
+  sortBy?: Array<SortByEnum> | SortByEnum,
+  mediaType?: Array<MediaTypeEnum> | MediaTypeEnum,
 };
 
 type PagedInfo<T> = {
@@ -72,14 +72,14 @@ type PagedInfo<T> = {
 type AssetRef = Asset | string;
 type AlbumRef = Album | string;
 
-function arrayize(item): Array {
+function arrayize<T>(item: Array<T> | ?T): Array<T> {
   if (Array.isArray(item)) {
     return item;
   }
   return item ? [item] : [];
 }
 
-function getId(ref): string {
+function getId(ref?: string | { id: string }): ?string {
   if (typeof ref === 'string') {
     return ref;
   }
@@ -92,13 +92,13 @@ function checkAssetIds(assetIds) {
   }
 }
 
-function checkMediaType(mediaType) {
-  if (Object.values(MediaType).indexOf(mediaType) === -1) {
+function checkMediaType(mediaType: MediaTypeEnum) {
+  if (Object.values(MediaLibrary.MediaType).indexOf(mediaType) === -1) {
     throw new Error(`Invalid mediaType: ${mediaType}`);
   }
 }
 
-function checkSortBy(sortBy) {
+function checkSortBy(sortBy: SortByEnum) {
   if (Array.isArray(sortBy)) {
     checkSortByKey(sortBy[0]);
 
@@ -110,9 +110,9 @@ function checkSortBy(sortBy) {
   }
 }
 
-function checkSortByKey(sortBy) {
-  if (Object.values(SortBy).indexOf(sortBy) === -1) {
-    throw new Error(`Invalid sortBy key: ${sortBy}`);
+function checkSortByKey(sortBy: SortByEnum) {
+  if (Object.values(MediaLibrary.SortBy).indexOf(sortBy) === -1) {
+    throw new Error(`Invalid sortBy key: ${sortBy.toString()}`);
   }
 }
 
